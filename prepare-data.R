@@ -118,3 +118,72 @@ survey$gender <- as.factor (survey$gender)
 survey$ethnicity <- as.factor (survey$ethnicity)
 survey$interview <- as.factor (survey$interview)
 
+####################
+#Summary Statistics#
+####################
+
+#Initial Questions#
+
+#consent given by 258 respondents
+summary(survey$consent)
+#but only 240 gave consent for data sharing (13 no's and 5 n/a's)
+summary(survey$consent_datasharing)
+#the majority of respondents teach courses focused on qualitative methods (186);
+#44 respondents teach courses with components of qualitative methods;
+#18 respondens do not teach qualitative methods
+summary(survey$teach_qualitative)
+#will work more on this graph this week
+counts <- table(survey$teach_qualitative)
+barplot(height=counts,
+        col="#69b3a2",
+        names.arg=c("No", "Yes, qualitative methods are the focus of courses I teach","Yes, qualitative methods form part of larger courses I teach"),
+        ylim=c(0,200),
+        las=2,
+        )
+summary(survey$analytic_methods)
+#most common answer here is "others", followed by "Thematic Analysis,Qualitative Comparative Analysis,Case Study Methods,Grounded Theory,Phenomenology,Narrative Analysis
+summary(survey$used_data)
+#32 NO's, 180 YES's, 45 N/A's
+
+#fork 3a
+summary(survey$fork3a_why_nodata)
+#most respondents did not answer this question (226); 7 of them don't believe doing so would be effective for their course
+summary(survey$fork3a_data_future)
+#again, most respondents did not answer this question (227)
+summary(survey$fork3a_encourage_data)
+#again, most respondents did not answer this question (227)
+
+#fork1
+summary(survey$fork1_type_data)
+#This is a bit of a mess as most respondents chose a combination of answers. Also, 86 respondents did not answer this question
+
+#fork2
+summary(survey$fork2_first_time)
+#again, 124 NAs here. Apart from that, most respondents used shared data for the first time 0-4 years ago
+summary(survey$fork2_frequency)
+#125 NAs here. Apart from that, 78 respondents answered "About the same" to whether they're using shared data more or less over time
+summary(survey$fork2_sources)
+#a combination of responses here. 125 NAs
+summary(survey$fork2_challenges_obtain)
+#82 respondents answered "none" to the challenges they faced to obtain shared data; 138 NAs.
+summary(survey$fork2_effect)
+#81 respondents said shared data strongly improved their courses (only 7 said it neither improved nor made it worse). 131 NAs.
+
+#fork3b
+
+summary(survey$fork3b_why_nodata)
+#229 NAs. 13 respondents marked "other", and other answers are distributed across alternatives
+summary(survey$fork3b_data_future)
+#again, 230 NAs. Same pattern as above.
+summary(survey$fork3b_encourage_data)
+#232 NAs. As it happened with fork3a, most preferred answered after that is "easily available data prepared for teaching"
+
+#final questions
+summary(survey$syllabi)
+#108 No, 78 Yes, 72 NAs
+summary(survey$age)
+#72NAs. Most respondents are within the 45-54 age range
+summary(survey$ethnicity)
+#143 white/caucasian, only 14 Black or African American. 70 NAs.
+summary(survey$interview)
+#73 No, 115 Yes, 70 NAs
