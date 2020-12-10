@@ -1,5 +1,6 @@
 library(readr)
 library(dplyr)
+library(ggplot2)
 
 # Read in the survey -- may need to adjust the filename
 survey <- read_csv("data/survey data_final.csv")
