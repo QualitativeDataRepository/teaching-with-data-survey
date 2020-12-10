@@ -132,16 +132,9 @@ summary(survey$consent_datasharing)
 #44 respondents teach courses with components of qualitative methods;
 #18 respondens do not teach qualitative methods
 summary(survey$teach_qualitative)
-#will work more on this graph this week
-counts <- table(survey$teach_qualitative)
-barplot(height=counts,
-        col="#69b3a2",
-        names.arg=c("No", "Yes, qualitative methods are the focus of courses I teach","Yes, qualitative methods form part of larger courses I teach"),
-        ylim=c(0,200),
-        las=2,
-        )
 summary(survey$analytic_methods)
 #most common answer here is "others", followed by "Thematic Analysis,Qualitative Comparative Analysis,Case Study Methods,Grounded Theory,Phenomenology,Narrative Analysis
+summary(survey$analytic_methods_open)
 summary(survey$used_data)
 #32 NO's, 180 YES's, 45 N/A's
 
@@ -187,3 +180,14 @@ summary(survey$ethnicity)
 #143 white/caucasian, only 14 Black or African American. 70 NAs.
 summary(survey$interview)
 #73 No, 115 Yes, 70 NAs
+
+#Graphs
+
+#Number of respondents who teach qualitative methods
+ggplot(survey, aes(x = teach_qualitative)) +
+  geom_bar() + scale_x_discrete(labels = c("Do Not Teach", "Major Focus", "Partial Focus", "N/A")) + ggtitle("Have you taught a graduate-level course focused on, or including material on, qualitative methods?") + ylab("Number of Respondents Teaching Qualitative Methods") + theme(axis.title.x=element_blank())
+
+#Number of respondents who have used shared data
+ggplot(survey, aes(x = used_data)) +
+  geom_bar() + ggtitle("Have you used data to teach any of the qualitative analytic methods you just mentioned?") + ylab("Number of Respondents") + theme(axis.title.x=element_blank())
+
