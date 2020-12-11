@@ -193,27 +193,100 @@ survey$fork3comb_encourage_data <- as.factor(ifelse(!is.na(survey$fork3a_encoura
 
 #Turn multiple choice variables into multiple binaries
 
-survey <- transform(survey, isDiscourseAnalysis = grepl("Discourse Analysis", survey$courses_taught),
-                            isThematicAnalysis = grepl("Thematic Analysis", survey$courses_taught),
-                            isQualitativeComparativeAnalysis = grepl("Qualitative Comparative Analysis", survey$courses_taught),
-                            isProcessTracing = grepl("ProcessTracing", survey$courses_taught),
-                            isComparativeHistoricalMethods = grepl("Comparative Historical Methods", survey$courses_taught),
-                            isGroundTheory = grepl("Grounded Theory", survey$courses_taught),
-                            isPhenomenology = grepl("Phenomenology", survey$courses_taught),
-                            isNarrativeAnalysis = grepl("Narrative Analysis", survey$courses_taught),
-                            isFrameworkAnalysis = grepl("Framework Analysis", survey$courses_taught))
+survey <- transform(survey, qual_methods_focus = grepl("Yes - Qualitative methods are the focus of my classes", survey$teach_qualitative),
+                            qual_methods_part = grepl("Yes - Qualitative methods are part of my classes", survey$teach_qualitative),
+                            not_qual_instructor = grepl("No - I do not teach qualitative methods", survey$teach_qualitative))
+#fork1
 
-survey <- transform(survey, isDatathatyourselfcollected = grepl("Data that yourself collected", survey$fork1_type_data),
-                            isDatacollectedbyanotherresearcher = grepl("Data collected by another researcher", survey$fork1_type_data),
-                            isDatacollectedbystudentspriortothecourse = grepl("Data collected by students prior to the course", survey$fork1_type_data),
-                            isDatacollectedbystudentsaspartofthecourse = grepl("Data collected by students as part of the course", survey$fork1_type_data))
+survey <- transform(survey, fork1_discourse_analysis = grepl("Discourse Analysis", survey$courses_taught),
+                            fork1_thematic_analysis = grepl("Thematic Analysis", survey$courses_taught),
+                            fork1_qual_com_analysis = grepl("Qual. Comp. Analysis", survey$courses_taught),
+                            fork1_process_tracing = grepl("ProcessTracing", survey$courses_taught),
+                            fork1_com_hist_met = grepl("Comp. Hist. Methods", survey$courses_taught),
+                            fork1_ground_theory = grepl("Grounded Theory", survey$courses_taught),
+                            fork1_phenomenology = grepl("Phenomenology", survey$courses_taught),
+                            fork1_narrative_analysis = grepl("Narrative Analysis", survey$courses_taught),
+                            fork1_framework_analysis = grepl("Framework Analysis", survey$courses_taught),
+                            fork1_other_course_taught = grepl("Other", survey$courses_taught))
+
+survey <- transform(survey, fork1_data_yourself = grepl("Data that yourself collected", survey$fork1_type_data),
+                            fork1_data_other_res = grepl("Data collected by other researcher", survey$fork1_type_data),
+                            fork1_data_student_prior = grepl("Data collected by students prior to course", survey$fork1_type_data),
+                            fork1_data_student_part = grepl("Data collected by students for course", survey$fork1_type_data),
+                            fork1_other_source = grepl("Other", survey$fork1_type_data))
+
+#fork 2
+
+survey <- transform(survey, fork2_firstime_0_4 = grepl("0-4 years ago", survey$fork2_first_time),
+                            fork2_firstime_5_9 = grepl("5-9 years ago", survey$fork2_first_time),
+                            fork2_firstime_10 = grepl("At least 10 years ago", survey$fork2_first_time))
+
+survey <- transform(survey, fork2_decrease = grepl("Decreasingly over time", survey$fork2_frequency),
+                            fork2_same = grepl("About the same", survey$fork2_frequency),
+                            fork2_increase = grepl("Increasingly over time", survey$fork2_frequency))
+
+survey <- transform(survey, fork2_my_own = grpel("I used my own data", survey$fork2_sources),
+                            fork2_colleague = grpel("I used data directly sent to me by a colleague", survey$fork2_sources),
+                            fork2_repository = grpel("I used data from a data repository", survey$fork2_sources),
+                            fork2_textbook = grpel("I used data from a textbook/e-resource page", survey$fork2_sources),
+                            fork2_source_others = grpel("Others", survey$fork2_sources))
+
+survey <- transform(survey, fork2_identify = grpel("Difficulty identifying useful data", survey$fork2_challenges_obtain),
+                            fork2_access = grpel("Difficulty accessing the data", survey$fork2_challenges_obtain),
+                            fork2_manage = grpel("Difficulty managing student access to data", survey$fork2_challenges_obtain),
+                            fork2_obtain_other = grpel("Other", survey$fork2_challenges_obtain))
 
 
-survey$isDatathatyourselfcollected <- as.factor (survey$isDatathatyourselfcollected)
-summary(survey$isDatathatyourselfcollected)
+survey <- transform(survey, fork2_discourse_analysis = grepl("Discourse Analysis", survey$fork2_useful_methods),
+                    fork2_thematic_analysis = grepl("Thematic Analysis", survey$fork2_useful_methods),
+                    fork2_qual_com_analysis = grepl("Qual. Comp. Analysis", survey$fork2_useful_methods),
+                    fork2_process_tracing = grepl("ProcessTracing", survey$fork2_useful_methods),
+                    fork2_com_hist_met = grepl("Comp. Hist. Methods", survey$fork2_useful_methods),
+                    fork2_ground_theory = grepl("Grounded Theory", survey$fork2_useful_methods),
+                    fork2_phenomenology = grepl("Phenomenology", survey$fork2_useful_methods),
+                    fork2_narrative_analysis = grepl("Narrative Analysis", survey$fork2_useful_methods),
+                    fork2_framework_analysis = grepl("Framework Analysis", survey$fork2_useful_methods),
+                    fork2_other_course_taught = grepl("Other", survey$fork2_useful_methods))
 
-survey$isDatacollectedbyanotherresearcher <- as.factor (survey$isDatacollectedbyanotherresearcher)
-summary(survey$isDatacollectedbyanotherresearcher)
+survey <- transform(survey, fork2_strong_improve = grepl("Strongly improved", survey$fork2_effect),
+                            fork2_somewhat_improve = grepl("Somewhat improved", survey$fork2_effect),
+                            fork2_neither = grepl("Neither improved nor made worse", survey$fork2_effect),
+                            fork2_somewhat_worse = grepl("Made somewhat worse", survey$fork2_effect),
+                            fork2_much_worse = grepl("made much worse", survey$fork2_effect))
+
+#fork 3
+survey <- transform(survey, fork3_not_effective = grepl("Not effective for my course", survey$fork3comb_why_nodata),
+                            fork3_notsure_use = grepl("Not sure how to use", survey$fork3comb_why_nodata),
+                            fork3_unlikely_find = grepl("Unlikely to find suitable data", survey$fork3comb_why_nodata),
+                            fork3_couldnt_find = grepl("Could not find suitable data", survey$fork3comb_why_nodata))
+
+survey <- transform(survey, fork3_plan_use = grepl("Plan to use it", survey$fork3comb_data_future),
+                            fork3_strong_cons = grepl("Strongly consider it", survey$fork3comb_data_future),
+                            fork3_cons = grepl("Consider it", survey$fork3comb_data_future),
+                            fork3_cons_skep = grepl("Consider it, but skeptical", survey$fork3comb_data_future),
+                            fork3_not_use = grepl("Not going to", survey$fork3comb_data_future))
+
+survey <- transform(survey, fork3_someone_help = grepl("Someone teaching/helping me to do so", survey$fork3comb_encourage_data),
+                            fork3_data_method = grepl("Easily available data for teaching method", survey$fork3comb_encourage_data),
+                            fork3_data_topic = grepl("Easily available data on a specific topic", survey$fork3comb_encourage_data),
+                            fork3_prep_lesson = grepl("Prepared lessons for teaching method with shared data", survey$fork3comb_encourage_data),
+                            fork3_other_enc = grepl("Other", survey$fork3comb_encourage_data))
+
+#final questions
+
+survey <- transform(survey, age_25_34 = grepl("25-34 years old", survey$age),
+                            age_35_44 = grepl("35-44 years old", survey$age),
+                            age_45_54 = grepl("45-54 years old", survey$age),
+                            age_55_64 = grepl("55-64 years old", survey$age),
+                            age_65_older = grepl("65 and older", survey$age))
+
+survey <- transform(survey, ethnicity_asian = grepl("Asian or Pacific Islander", survey$ethnicity),
+                            ethnicity_black = grepl("Black or African American", survey$ethnicity),
+                            ethnicity_hispanic = grepl("Hispanic or Latino",survey$ethnicity),
+                            ethnicity_native = grepl("Native American or Alakan Native",survey$ethnicity),
+                            ethnicity_white = grepl("White or Caucasian", survey$ethnicity),
+                            ethnicity_multi = grepl("Multiracial or Biracial", survey$ethnicity),
+                            ethnicity_not_listed = grepl("Not listed here", survey$ethnicity))
 
 
 ####################
