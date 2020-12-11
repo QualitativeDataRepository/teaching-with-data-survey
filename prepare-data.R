@@ -154,13 +154,13 @@ survey$fork1_methods <- gsub('Other \\(Separate methods by semicolon\\)', 'Other
 levels(survey$fork1_type_data) <- gsub("Data collected by another researcher", "Data collected by other researcher", levels(survey$fork1_type_data))
 levels(survey$fork1_type_data) <- gsub("Data collected by students prior to the course", "Data collected by students prior to course", levels(survey$fork1_type_data))
 levels(survey$fork1_type_data) <- gsub("Data collected by students as part of the course", "Data collected by students for course", levels(survey$fork1_type_data))
-levels(survey$fork1_type_data) <- gsub("Other (please specificy", "Other", levels(survey$fork1_type_data))
+levels(survey$fork1_type_data) <- gsub("Other (please specificy)", "Other", levels(survey$fork1_type_data))
 
 levels(survey$fork2_sources) <- gsub("I used data from a data repository (e.g., ICPSR, QDR)", "I used data from a data repository", levels(survey$fork2_sources))
 levels(survey$fork2_sources) <- gsub("I used data from a textbook/e-resource page (e.g., SAGE Research Methods)", "I used data from a textbook/e-resource page", levels(survey$fork2_sources))
-levels(survey$fork2_sources) <- gsub("Other (please specificy", "Other", levels(survey$fork2_sources))
+levels(survey$fork2_sources) <- gsub("Other (please specificy)", "Other", levels(survey$fork2_sources))
 
-levels(survey$fork2_challenges_obtain) <- gsub("Other (please specificy", "Other", levels(survey$fork2_challenges_obtain))
+levels(survey$fork2_challenges_obtain) <- gsub("Other (please specificy)", "Other", levels(survey$fork2_challenges_obtain))
 
 levels(survey$fork2_useful_methods) <- gsub("Qualitative Comparative Analysis","Qual. Comp. Analysis", levels(survey$fork2_useful_methods))
 levels(survey$fork2_useful_methods) <- gsub("Comparative Historical Methods","Comp. Hist. Methods", levels(survey$fork2_useful_methods))
@@ -186,6 +186,10 @@ survey$fork3b_encourage_data <- gsub('Other \\(Separate methods by semicolon\\)'
 #shared data, the other pre-existing data), thus we need to adjust factors before merginig the two factors
 
 survey$fork3comb_why_nodata <- as.factor(ifelse(!is.na(survey$fork3a_why_nodata),as.character(survey$fork3a_why_nodata),as.character(survey$fork3b_why_nodata)))
+
+survey$fork3comb_data_future <- as.factor(ifelse(!is.na(survey$fork3a_data_future),as.character(survey$fork3a_data_future),as.character(survey$fork3b_data_future)))
+
+survey$fork3comb_encourage_data <- as.factor(ifelse(!is.na(survey$fork3a_encourage_data),as.character(survey$fork3a_encourage_data),as.character(survey$fork3b_encourage_data)))
 
 #Turn multiple choice variables into multiple binaries
 
