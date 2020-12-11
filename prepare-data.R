@@ -198,16 +198,17 @@ survey <- transform(survey, qual_methods_focus = grepl("Yes - Qualitative method
                             not_qual_instructor = grepl("No - I do not teach qualitative methods", survey$teach_qualitative))
 #fork1
 
-survey <- transform(survey, fork1_discourse_analysis = grepl("Discourse Analysis", survey$courses_taught),
-                            fork1_thematic_analysis = grepl("Thematic Analysis", survey$courses_taught),
-                            fork1_qual_com_analysis = grepl("Qual. Comp. Analysis", survey$courses_taught),
-                            fork1_process_tracing = grepl("ProcessTracing", survey$courses_taught),
-                            fork1_com_hist_met = grepl("Comp. Hist. Methods", survey$courses_taught),
-                            fork1_ground_theory = grepl("Grounded Theory", survey$courses_taught),
-                            fork1_phenomenology = grepl("Phenomenology", survey$courses_taught),
-                            fork1_narrative_analysis = grepl("Narrative Analysis", survey$courses_taught),
-                            fork1_framework_analysis = grepl("Framework Analysis", survey$courses_taught),
-                            fork1_other_course_taught = grepl("Other", survey$courses_taught))
+survey <- transform(survey, fork1_discourse_analysis = grepl("Discourse Analysis", survey$analytic_methods),
+                            fork1_thematic_analysis = grepl("Thematic Analysis", survey$analytic_methods),
+                            fork1_qual_com_analysis = grepl("Qual. Comp. Analysis", survey$analytic_methods),
+                            fork1_process_tracing = grepl("ProcessTracing", survey$analytic_methods),
+                            fork1_com_hist_met = grepl("Comp. Hist. Methods", survey$analytic_methods),
+                            fork1_ground_theory = grepl("Grounded Theory", survey$analytic_methods),
+                            fork1_case_study = grepl("Case Study Methods", survey$analytic_methods),
+                            fork1_phenomenology = grepl("Phenomenology", survey$analytic_methods),
+                            fork1_narrative_analysis = grepl("Narrative Analysis", survey$analytic_methods),
+                            fork1_framework_analysis = grepl("Framework Analysis", survey$analytic_methods),
+                            fork1_other_method = grepl("Other", survey$analytic_methods))
 
 survey <- transform(survey, fork1_data_yourself = grepl("Data that yourself collected", survey$fork1_type_data),
                             fork1_data_other_res = grepl("Data collected by other researcher", survey$fork1_type_data),
@@ -246,7 +247,7 @@ survey <- transform(survey, fork2_discourse_analysis = grepl("Discourse Analysis
                     fork2_phenomenology = grepl("Phenomenology", survey$fork2_useful_methods),
                     fork2_narrative_analysis = grepl("Narrative Analysis", survey$fork2_useful_methods),
                     fork2_framework_analysis = grepl("Framework Analysis", survey$fork2_useful_methods),
-                    fork2_other_course_taught = grepl("Other", survey$fork2_useful_methods))
+                    fork2_other_method = grepl("Other", survey$fork2_useful_methods))
 
 survey <- transform(survey, fork2_strong_improve = grepl("Strongly improved", survey$fork2_effect),
                             fork2_somewhat_improve = grepl("Somewhat improved", survey$fork2_effect),
@@ -288,69 +289,35 @@ survey <- transform(survey, ethnicity_asian = grepl("Asian or Pacific Islander",
                             ethnicity_multi = grepl("Multiracial or Biracial", survey$ethnicity),
                             ethnicity_not_listed = grepl("Not listed here", survey$ethnicity))
 
-
 ####################
 #Summary Statistics#
 ####################
 
-#Initial Questions#
 
-#consent given by 258 respondents
+#General information: consent given by 258 respondents
 summary(survey$consent)
 #but only 240 gave consent for data sharing (13 no's and 5 n/a's)
 summary(survey$consent_datasharing)
-#the majority of respondents teach courses focused on qualitative methods (186);
+
+#The majority of respondents teach courses focused on qualitative methods (186);
 #44 respondents teach courses with components of qualitative methods;
 #18 respondens do not teach qualitative methods
 summary(survey$teach_qualitative)
-summary(survey$analytic_methods)
-#most common answer here is "others", followed by "Thematic Analysis,Qualitative Comparative Analysis,Case Study Methods,Grounded Theory,Phenomenology,Narrative Analysis
-summary(survey$analytic_methods_open)
+
+summary(survey$fork1_discourse_analysis)
+summary(survey$fork1_thematic_analysis)
+summary(survey$fork1_qual_com_analysis)
+summary(survey$fork1_process_tracing)
+summary(survey$fork1_com_hist_met)
+summary(survey$fork1_phenomenology)
+summary(survey$fork1_narrative_analysis)
+summary(survey$fork1_case_study)
+summary(survey$fork1_ground_theory)
+summary(survey$fork1_framework_analysis)
+summary(survey$fork1_other_method)
+
 summary(survey$used_data)
 #32 NO's, 180 YES's, 45 N/A's
-
-#fork 3a
-summary(survey$fork3a_why_nodata)
-#most respondents did not answer this question (226); 7 of them don't believe doing so would be effective for their course
-summary(survey$fork3a_data_future)
-#again, most respondents did not answer this question (227)
-summary(survey$fork3a_encourage_data)
-#again, most respondents did not answer this question (227)
-
-#fork1
-summary(survey$fork1_type_data)
-#This is a bit of a mess as most respondents chose a combination of answers.
-
-#fork2
-summary(survey$fork2_first_time)
-#again, 124 NAs here. Apart from that, most respondents used shared data for the first time 0-4 years ago
-summary(survey$fork2_frequency)
-#125 NAs here. Apart from that, 78 respondents answered "About the same" to whether they're using shared data more or less over time
-summary(survey$fork2_sources)
-#a combination of responses here. 125 NAs
-summary(survey$fork2_challenges_obtain)
-#82 respondents answered "none" to the challenges they faced to obtain shared data; 138 NAs.
-summary(survey$fork2_effect)
-#81 respondents said shared data strongly improved their courses (only 7 said it neither improved nor made it worse). 131 NAs.
-
-#fork3b
-
-summary(survey$fork3b_why_nodata)
-#229 NAs. 13 respondents marked "other", and other answers are distributed across alternatives
-summary(survey$fork3b_data_future)
-#again, 230 NAs. Same pattern as above.
-summary(survey$fork3b_encourage_data)
-#232 NAs. As it happened with fork3a, most preferred answered after that is "easily available data prepared for teaching"
-
-#final questions
-summary(survey$syllabi)
-#108 No, 78 Yes, 72 NAs
-summary(survey$age)
-#72NAs. Most respondents are within the 45-54 age range
-summary(survey$ethnicity)
-#143 white/caucasian, only 14 Black or African American. 70 NAs.
-summary(survey$interview)
-#73 No, 115 Yes, 70 NAs
 
 #Graphs
 
@@ -361,6 +328,4 @@ ggplot(survey, aes(x = teach_qualitative)) +
 #Number of respondents who have used shared data
 ggplot(survey, aes(x = used_data)) +
   geom_bar() + ggtitle("Have you used data to teach any of the qualitative analytic methods you just mentioned?") + ylab("Number of Respondents") + theme(axis.title.x=element_blank())
-
-
 
