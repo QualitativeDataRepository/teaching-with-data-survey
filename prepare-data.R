@@ -119,6 +119,59 @@ survey$gender <- as.factor (survey$gender)
 survey$ethnicity <- as.factor (survey$ethnicity)
 survey$interview <- as.factor (survey$interview)
 
+#Record the factors in all variables so they can be used as figure labels
+
+levels(survey$consent)[levels(survey$consent)=="Yes"] <- "chose_participate"
+levels(survey$consent_datasharing)[levels(survey$consent_datasharing)=="Yes"] <- "shara_data_qdr"
+levels(survey$teach_qualitative)[levels(survey$teach_qualitative)=="Yes, qualitative methods are the focus of one or more courses that I teach"] <- "focus_qualitative"
+levels(survey$teach_qualitative)[levels(survey$teach_qualitative)=="Yes, qualitative methods form part of one or more larger courses that I teach"] <- "part_qualitative"
+levels(survey$teach_qualitative)[levels(survey$teach_qualitative)=="No"] <- "no_qualitative_course"
+levels(survey$analytic_methods)[levels(survey$analytic_methods)=="Discourse Analysis"] <--"discourse_analysis"
+levels(survey$analytic_methods)[levels(survey$analytic_methods)=="Thematic Analysis"] <--"thematic_analysis"
+levels(survey$analytic_methods)[levels(survey$analytic_methods)=="Qualitative Comparative Analysis"] <--"qual_comp_analysis"
+levels(survey$analytic_methods)[levels(survey$analytic_methods)=="Process Tracing"] <--"process_tracing"
+levels(survey$analytic_methods)[levels(survey$analytic_methods)=="Comparative Historical Methods"] <--"com_hist_met"
+levels(survey$analytic_methods)[levels(survey$analytic_methods)=="Case Study Methods"] <--"case_study_met"
+levels(survey$analytic_methods)[levels(survey$analytic_methods)=="Grounded Theory"] <--"grounded_theory"
+levels(survey$analytic_methods)[levels(survey$analytic_methods)=="Phenomenology"] <--"phenomenology"
+levels(survey$analytic_methods)[levels(survey$analytic_methods)=="Narrative Analysis"] <--"narrative_analysis"
+levels(survey$analytic_methods)[levels(survey$analytic_methods)=="Framework Analysis"] <--"fram_analysis"
+
+
+
+
+
+#Combine Forks 3a and 3b
+#Note: Choices in questions fork3a_why_nodata and fork3b_why_nodata are worded slightly different (one mentions
+#shared data, the other pre-existing data), thus we need to adjust factors before merginig the two factors
+
+survey$fork3comb_why_nodata <- as.factor(ifelse(!is.na(survey$fork3a_why_nodata),as.character(survey$fork3a_why_nodata),as.character(survey$fork3b_why_nodata)))
+
+#Turn multiple choice variables into multiple binaries
+
+survey <- transform(survey, isDiscourseAnalysis = grepl("Discourse Analysis", survey$courses_taught),
+                            isThematicAnalysis = grepl("Thematic Analysis", survey$courses_taught),
+                            isQualitativeComparativeAnalysis = grepl("Qualitative Comparative Analysis", survey$courses_taught),
+                            isProcessTracing = grepl("ProcessTracing", survey$courses_taught),
+                            isComparativeHistoricalMethods = grepl("Comparative Historical Methods", survey$courses_taught),
+                            isGroundTheory = grepl("Grounded Theory", survey$courses_taught),
+                            isPhenomenology = grepl("Phenomenology", survey$courses_taught),
+                            isNarrativeAnalysis = grepl("Narrative Analysis", survey$courses_taught),
+                            isFrameworkAnalysis = grepl("Framework Analysis", survey$courses_taught))
+
+survey <- transform(survey, isDatathatyourselfcollected = grepl("Data that yourself collected", survey$fork1_type_data),
+                            isDatacollectedbyanotherresearcher = grepl("Data collected by another researcher", survey$fork1_type_data),
+                            isDatacollectedbystudentspriortothecourse = grepl("Data collected by students prior to the course", survey$fork1_type_data),
+                            isDatacollectedbystudentsaspartofthecourse = grepl("Data collected by students as part of the course", survey$fork1_type_data))
+
+
+survey$isDatathatyourselfcollected <- as.factor (survey$isDatathatyourselfcollected)
+summary(survey$isDatathatyourselfcollected)
+
+survey$isDatacollectedbyanotherresearcher <- as.factor (survey$isDatacollectedbyanotherresearcher)
+summary(survey$isDatacollectedbyanotherresearcher)
+
+
 ####################
 #Summary Statistics#
 ####################
@@ -149,7 +202,7 @@ summary(survey$fork3a_encourage_data)
 
 #fork1
 summary(survey$fork1_type_data)
-#This is a bit of a mess as most respondents chose a combination of answers. Also, 86 respondents did not answer this question
+#This is a bit of a mess as most respondents chose a combination of answers.
 
 #fork2
 summary(survey$fork2_first_time)
@@ -191,4 +244,6 @@ ggplot(survey, aes(x = teach_qualitative)) +
 #Number of respondents who have used shared data
 ggplot(survey, aes(x = used_data)) +
   geom_bar() + ggtitle("Have you used data to teach any of the qualitative analytic methods you just mentioned?") + ylab("Number of Respondents") + theme(axis.title.x=element_blank())
+
+
 
