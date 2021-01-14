@@ -1,8 +1,8 @@
 library(readr)
 library(dplyr)
 library(ggplot2)
-install.packages("remotes")
-remotes::install_github("ropenscilabs/gendercodeR")
+# install.packages("remotes")
+# remotes::install_github("ropenscilabs/gendercodeR")
 library(gendercodeR)
 
 # Read in the survey -- may need to adjust the filename
@@ -444,7 +444,7 @@ summary(survey$ethnicity_not_listed)
 #gender
 #First, recode gender variable
 #code 1
-survey %>%  mutate(recoded_gender = recode_gender(gender = gender, dictionary = broad))
+survey <- survey %>% mutate(recoded_gender = recode_gender(gender = gender, dictionary = broad))
 #code 2
 survey %>%
   mutate(recoded_gender = recode_gender(gender = gender, dictionary = broad)) %>%
