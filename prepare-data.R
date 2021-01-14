@@ -1,6 +1,9 @@
 library(readr)
 library(dplyr)
 library(ggplot2)
+install.packages("remotes")
+remotes::install_github("ropenscilabs/gendercodeR")
+library(gendercodeR)
 
 # Read in the survey -- may need to adjust the filename
 survey <- read_csv("data/survey data_final.csv")
@@ -439,7 +442,17 @@ summary(survey$ethnicity_multi)
 summary(survey$ethnicity_not_listed)
 
 #gender
-summary(survey$gender)
+#First, recode gender variable
+#code 1
+survey %>%  mutate(recoded_gender = recode_gender(gender = gender, dictionary = broad))
+#code 2
+survey %>%
+  mutate(recoded_gender = recode_gender(gender = gender, dictionary = broad)) %>%
+  filter(!is.na(recoded_gender)) %>%
+  group_by(recoded_gender) %>%
+  summarise(count = n()) %>%
+  arrange(-count) %>%
+  knitr::kable(caption = "Summary of gender categories after use of the *broad* dictionary")
 
 #Graphs
 
