@@ -441,18 +441,13 @@ summary(survey$ethnicity_white)
 summary(survey$ethnicity_multi)
 summary(survey$ethnicity_not_listed)
 
-#gender
-#First, recode gender variable
-#code 1
+#recode and summarize gender
 survey <- survey %>% mutate(recoded_gender = recode_gender(gender = gender, dictionary = broad))
-#code 2
-survey %>%
-  mutate(recoded_gender = recode_gender(gender = gender, dictionary = broad)) %>%
-  filter(!is.na(recoded_gender)) %>%
-  group_by(recoded_gender) %>%
-  summarise(count = n()) %>%
-  arrange(-count) %>%
-  knitr::kable(caption = "Summary of gender categories after use of the *broad* dictionary")
+survey$recoded_gender <- as.factor (survey$recoded_gender)
+levels(survey$recoded_gender) <- gsub("cis female", "Other responses", levels(survey$recoded_gender))
+levels(survey$recoded_gender) <- gsub("cis male", "Other responses", levels(survey$recoded_gender))
+levels(survey$recoded_gender) <- gsub("transgender", "Other responses", levels(survey$recoded_gender))
+summary(survey$recoded_gender)
 
 #Graphs
 
