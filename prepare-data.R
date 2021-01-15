@@ -199,19 +199,32 @@ survey$fork3comb_encourage_data <- as.factor(ifelse(!is.na(survey$fork3a_encoura
 survey <- transform(survey, qual_methods_focus = grepl("Yes - Qualitative methods are the focus of my classes", survey$teach_qualitative),
                             qual_methods_part = grepl("Yes - Qualitative methods are part of my classes", survey$teach_qualitative),
                             not_qual_instructor = grepl("No - I do not teach qualitative methods", survey$teach_qualitative))
+
+survey <- transform(survey, discourse_analysis = grepl("Discourse Analysis", survey$analytic_methods),
+                            thematic_analysis = grepl("Thematic Analysis", survey$analytic_methods),
+                            qual_com_analysis = grepl("Qual. Comp. Analysis", survey$analytic_methods),
+                            process_tracing = grepl("ProcessTracing", survey$analytic_methods),
+                            com_hist_met = grepl("Comp. Hist. Methods", survey$analytic_methods),
+                            ground_theory = grepl("Grounded Theory", survey$analytic_methods),
+                            case_study = grepl("Case Study Methods", survey$analytic_methods),
+                            phenomenology = grepl("Phenomenology", survey$analytic_methods),
+                            narrative_analysis = grepl("Narrative Analysis", survey$analytic_methods),
+                            framework_analysis = grepl("Framework Analysis", survey$analytic_methods),
+                            other_method = grepl("Other", survey$analytic_methods))
+
 #fork1
 
-survey <- transform(survey, fork1_discourse_analysis = grepl("Discourse Analysis", survey$analytic_methods),
-                            fork1_thematic_analysis = grepl("Thematic Analysis", survey$analytic_methods),
-                            fork1_qual_com_analysis = grepl("Qual. Comp. Analysis", survey$analytic_methods),
-                            fork1_process_tracing = grepl("ProcessTracing", survey$analytic_methods),
-                            fork1_com_hist_met = grepl("Comp. Hist. Methods", survey$analytic_methods),
-                            fork1_ground_theory = grepl("Grounded Theory", survey$analytic_methods),
-                            fork1_case_study = grepl("Case Study Methods", survey$analytic_methods),
-                            fork1_phenomenology = grepl("Phenomenology", survey$analytic_methods),
-                            fork1_narrative_analysis = grepl("Narrative Analysis", survey$analytic_methods),
-                            fork1_framework_analysis = grepl("Framework Analysis", survey$analytic_methods),
-                            fork1_other_method = grepl("Other", survey$analytic_methods))
+survey <- transform(survey, fork1_discourse_analysis = grepl("Discourse Analysis", survey$fork1_methods),
+                            fork1_thematic_analysis = grepl("Thematic Analysis", survey$fork1_methods),
+                            fork1_qual_com_analysis = grepl("Qual. Comp. Analysis", survey$fork1_methods),
+                            fork1_process_tracing = grepl("ProcessTracing", survey$fork1_methods),
+                            fork1_com_hist_met = grepl("Comp. Hist. Methods", survey$fork1_methods),
+                            fork1_ground_theory = grepl("Grounded Theory", survey$fork1_methods),
+                            fork1_case_study = grepl("Case Study Methods", survey$fork1_methods),
+                            fork1_phenomenology = grepl("Phenomenology", survey$fork1_methods),
+                            fork1_narrative_analysis = grepl("Narrative Analysis", survey$fork1_methods),
+                            fork1_framework_analysis = grepl("Framework Analysis", survey$fork1_methods),
+                            fork1_other_method = grepl("Other", survey$fork1_methods))
 
 survey <- transform(survey, fork1_data_yourself = grepl("Data that yourself collected", survey$fork1_type_data),
                             fork1_data_other_res = grepl("Data collected by other researcher", survey$fork1_type_data),
@@ -311,7 +324,8 @@ summary(survey$teach_qualitative)
 summary(survey$courses_taught)
 
 #Analytic Methods
-summary(survey$fork1_discourse_analysis)
+summary(survey$analytic_methods)
+
 summary(survey$fork1_thematic_analysis)
 summary(survey$fork1_qual_com_analysis)
 summary(survey$fork1_process_tracing)
@@ -444,8 +458,8 @@ summary(survey$ethnicity_not_listed)
 #recode and summarize gender
 survey <- survey %>% mutate(recoded_gender = recode_gender(gender = gender, dictionary = broad))
 survey$recoded_gender <- as.factor (survey$recoded_gender)
-levels(survey$recoded_gender) <- gsub("cis female", "Other responses", levels(survey$recoded_gender))
-levels(survey$recoded_gender) <- gsub("cis male", "Other responses", levels(survey$recoded_gender))
+levels(survey$recoded_gender) <- gsub("cis female", "female", levels(survey$recoded_gender))
+levels(survey$recoded_gender) <- gsub("cis male", "male", levels(survey$recoded_gender))
 levels(survey$recoded_gender) <- gsub("transgender", "Other responses", levels(survey$recoded_gender))
 summary(survey$recoded_gender)
 
