@@ -166,13 +166,13 @@ levels(survey$fork3a_data_future) <- gsub("I am almost certainly not going to", 
 
 levels(survey$fork3a_encourage_data) <- gsub("Easily available data specifically prepared for teaching a specific method", "Easily available data for teaching method", levels(survey$fork3a_encourage_data))
 levels(survey$fork3a_encourage_data) <- gsub("Prepared lessons/lesson plans for teaching a specific method based on shared data", "Prepared lessons for teaching method with shared data", levels(survey$fork3a_encourage_data))
-levels(survey$fork3a_encourage_data <- gsub('Other \\(Separate methods by semicolon\\)', 'Other', survey$fork3a_encourage_data))
+levels(survey$fork3a_encourage_data) <- gsub('Other \\(Separate methods by semicolon\\)', 'Other',  levels(survey$fork3a_encourage_data))
 
 levels(survey$fork1_methods) <- gsub("Qualitative Comparative Analysis","Qual. Comp. Analysis", levels(survey$fork1_methods))
 levels(survey$fork1_methods) <- gsub("Comparative Historical Methods","Comp. Hist. Methods", levels(survey$fork1_methods))
-levels(survey$fork1_methods <- gsub('Other \\(Separate methods by semicolon\\)', 'Other', survey$fork1_methods))
+levels(survey$fork1_methods) <- gsub("Other \\(Separate methods by semicolon\\)", "Other", levels(survey$fork1_methods))
 
-levels(survey$fork1_type_data) <- gsub("Data that you yourself collected prior to the course", "Data you yourself collected", levels(survey$fork1_type_data))
+levels(survey$fork1_type_data) <- gsub("Data that you yourself collected", "Data you yourself collected", levels(survey$fork1_type_data))
 levels(survey$fork1_type_data) <- gsub("Data collected by another researcher prior to the course", "Data collected by other researcher", levels(survey$fork1_type_data))
 levels(survey$fork1_type_data) <- gsub("Data collected by students prior to the course", "Data collected by students prior to course", levels(survey$fork1_type_data))
 levels(survey$fork1_type_data) <- gsub("Data collected by students as part of the course", "Data collected by students for course", levels(survey$fork1_type_data))
