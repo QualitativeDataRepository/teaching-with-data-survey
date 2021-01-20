@@ -1,3 +1,6 @@
+
+# Load packages -----------------------------------------------------------
+
 library(readr)
 library(dplyr)
 library(ggplot2)
@@ -5,8 +8,13 @@ library(ggplot2)
 # remotes::install_github("ropenscilabs/gendercodeR")
 library(gendercodeR)
 
+# Read Data ---------------------------------------------------------------
+
 # Read in the survey -- may need to adjust the filename
 survey <- read_csv("data/survey data_final.csv")
+
+
+# Clean Data --------------------------------------------------------------
 
 # remove first two rows which have metadata
 survey <- survey[-(1:2),]
@@ -23,6 +31,9 @@ survey <- survey %>% rename(Q09 = Q9, Q01 = Q1)
 
 # Sort columns (we may not want this -- looks like they're in the right order)
 # survey <- survey[, order(names(survey))]
+
+
+# Rename Variables --------------------------------------------------------
 
 # Name variables
 # to identify each fork, variables that are specific to a certain fork start
@@ -86,6 +97,9 @@ survey <- survey %>% rename(
   interview = Q30
 )
 
+
+# Turn Strings Into Factors -----------------------------------------------
+
 # Turn strings into factors
 survey$consent <- as.factor(survey$consent)
 survey$consent_datasharing <- as.factor(survey$consent_datasharing)
@@ -121,6 +135,10 @@ survey$age <- as.factor (survey$age)
 survey$gender <- as.factor (survey$gender)
 survey$ethnicity <- as.factor (survey$ethnicity)
 survey$interview <- as.factor (survey$interview)
+
+
+# Recode Factors ----------------------------------------------------------
+
 
 #Recode the factors in all variables so they can be used as figure labels
 
@@ -168,7 +186,7 @@ levels(survey$fork2_challenges_obtain) <- gsub("Other (please specificy)", "Othe
 
 levels(survey$fork2_useful_methods) <- gsub("Qualitative Comparative Analysis","Qual. Comp. Analysis", levels(survey$fork2_useful_methods))
 levels(survey$fork2_useful_methods) <- gsub("Comparative Historical Methods","Comp. Hist. Methods", levels(survey$fork2_useful_methods))
-evels(survey$fork2_useful_methods <- gsub('Other \\(Separate methods by semicolon\\)', 'Other', survey$fork2_useful_methods))
+levels(survey$fork2_useful_methods <- gsub('Other \\(Separate methods by semicolon\\)', 'Other', survey$fork2_useful_methods))
 
 levels(survey$fork3b_why_nodata) <- gsub("I don’t believe doing so would be effective for my course", "Not effective for my course", levels(survey$fork3b_why_nodata))
 levels(survey$fork3b_why_nodata) <- gsub("I am not sure how to use pre-existing data effectively in instruction", "Not sure how to use", levels(survey$fork3b_why_nodata))
@@ -185,6 +203,10 @@ levels(survey$fork3b_encourage_data) <- gsub("Easily available data specifically
 levels(survey$fork3b_encourage_data) <- gsub("Prepared lessons/lesson plans for teaching a specific method based on shared data", "Prepared lessons for teaching method with shared data", levels(survey$fork3b_encourage_data))
 levels(survey$fork3b_encourage_data <- gsub('Other \\(Separate methods by semicolon\\)', 'Other', survey$fork3b_encourage_data))
 
+
+# Combine Forks 3a and 3b -------------------------------------------------
+
+
 #Combine Forks 3a and 3b
 #Note: Choices in questions fork3a_why_nodata and fork3b_why_nodata are worded slightly different (one mentions
 #shared data, the other pre-existing data), thus we need to adjust factors before merging the two factors
@@ -195,11 +217,10 @@ survey$fork3comb_data_future <- as.factor(ifelse(!is.na(survey$fork3a_data_futur
 
 survey$fork3comb_encourage_data <- as.factor(ifelse(!is.na(survey$fork3a_encourage_data),as.character(survey$fork3a_encourage_data),as.character(survey$fork3b_encourage_data)))
 
-#Turn multiple choice variables into multiple binaries
 
-survey <- transform(survey, qual_methods_focus = grepl("Yes - Qualitative methods are the focus of my classes", survey$teach_qualitative),
-                            qual_methods_part = grepl("Yes - Qualitative methods are part of my classes", survey$teach_qualitative),
-                            not_qual_instructor = grepl("No - I do not teach qualitative methods", survey$teach_qualitative))
+# Turn Multiple Choice Variables Into Binary ------------------------------
+
+#Turn multiple choice variables into multiple binaries
 
 survey <- transform(survey, discourse_analysis = grepl("Discourse Analysis", survey$analytic_methods),
                             thematic_analysis = grepl("Thematic Analysis", survey$analytic_methods),
@@ -235,14 +256,6 @@ survey <- transform(survey, fork1_data_yourself = grepl("Data you yourself colle
 
 #fork 2
 
-survey <- transform(survey, fork2_firstime_0_4 = grepl("0-4 years ago", survey$fork2_first_time),
-                            fork2_firstime_5_9 = grepl("5-9 years ago", survey$fork2_first_time),
-                            fork2_firstime_10 = grepl("At least 10 years ago", survey$fork2_first_time))
-
-survey <- transform(survey, fork2_decrease = grepl("Decreasingly over time", survey$fork2_frequency),
-                            fork2_same = grepl("About the same", survey$fork2_frequency),
-                            fork2_increase = grepl("Increasingly over time", survey$fork2_frequency))
-
 survey <- transform(survey, fork2_my_own = grepl("I used my own data", survey$fork2_sources),
                             fork2_colleague = grepl("I used data directly sent to me by a colleague", survey$fork2_sources),
                             fork2_repository = grepl("I used data from a data repository", survey$fork2_sources),
@@ -266,214 +279,14 @@ survey <- transform(survey, fork2_discourse_analysis = grepl("Discourse Analysis
                     fork2_framework_analysis = grepl("Framework Analysis", survey$fork2_useful_methods),
                     fork2_other_method = grepl("Other", survey$fork2_useful_methods))
 
-survey <- transform(survey, fork2_strong_improve = grepl("Strongly improved", survey$fork2_effect),
-                            fork2_somewhat_improve = grepl("Somewhat improved", survey$fork2_effect),
-                            fork2_neither = grepl("Neither improved nor made worse", survey$fork2_effect),
-                            fork2_somewhat_worse = grepl("Made somewhat worse", survey$fork2_effect),
-                            fork2_much_worse = grepl("made much worse", survey$fork2_effect))
-
 #fork 3
 survey <- transform(survey, fork3_not_effective = grepl("Not effective for my course", survey$fork3comb_why_nodata),
                             fork3_notsure_use = grepl("Not sure how to use", survey$fork3comb_why_nodata),
                             fork3_unlikely_find = grepl("Unlikely to find suitable data", survey$fork3comb_why_nodata),
                             fork3_couldnt_find = grepl("Could not find suitable data", survey$fork3comb_why_nodata))
 
-survey <- transform(survey, fork3_plan_use = grepl("Plan to use it", survey$fork3comb_data_future),
-                            fork3_strong_cons = grepl("Strongly consider it", survey$fork3comb_data_future),
-                            fork3_cons = grepl("Consider it", survey$fork3comb_data_future),
-                            fork3_cons_skep = grepl("Consider it, but skeptical", survey$fork3comb_data_future),
-                            fork3_not_use = grepl("Not going to", survey$fork3comb_data_future))
-
 survey <- transform(survey, fork3_someone_help = grepl("Someone teaching/helping me to do so", survey$fork3comb_encourage_data),
                             fork3_data_method = grepl("Easily available data for teaching method", survey$fork3comb_encourage_data),
                             fork3_data_topic = grepl("Easily available data on a specific topic", survey$fork3comb_encourage_data),
                             fork3_prep_lesson = grepl("Prepared lessons for teaching method with shared data", survey$fork3comb_encourage_data),
                             fork3_other_enc = grepl("Other", survey$fork3comb_encourage_data))
-
-#final questions
-
-survey <- transform(survey, age_25_34 = grepl("25-34 years old", survey$age),
-                            age_35_44 = grepl("35-44 years old", survey$age),
-                            age_45_54 = grepl("45-54 years old", survey$age),
-                            age_55_64 = grepl("55-64 years old", survey$age),
-                            age_65_older = grepl("65 and older", survey$age))
-
-survey <- transform(survey, ethnicity_asian = grepl("Asian or Pacific Islander", survey$ethnicity),
-                            ethnicity_black = grepl("Black or African American", survey$ethnicity),
-                            ethnicity_hispanic = grepl("Hispanic or Latino",survey$ethnicity),
-                            ethnicity_native = grepl("Native American or Alakan Native",survey$ethnicity),
-                            ethnicity_white = grepl("White or Caucasian", survey$ethnicity),
-                            ethnicity_multi = grepl("Multiracial or Biracial", survey$ethnicity),
-                            ethnicity_not_listed = grepl("Not listed here", survey$ethnicity))
-
-####################
-#Summary Statistics#
-####################
-
-
-#General information: consent given by 258 respondents
-summary(survey$consent)
-#but only 240 gave consent for data sharing (13 no's and 5 n/a's)
-summary(survey$consent_datasharing)
-
-#The majority of respondents teach courses focused on qualitative methods (186);
-#44 respondents teach courses with components of qualitative methods;
-#18 respondens do not teach qualitative methods
-#10 N/As
-summary(survey$teach_qualitative)
-
-#Getting an idea about which courses were taught
-summary(survey$courses_taught)
-
-#Analytic Methods
-summary(survey$analytic_methods)
-
-summary(survey$fork1_thematic_analysis)
-summary(survey$fork1_qual_com_analysis)
-summary(survey$fork1_process_tracing)
-summary(survey$fork1_com_hist_met)
-summary(survey$fork1_phenomenology)
-summary(survey$fork1_narrative_analysis)
-summary(survey$fork1_case_study)
-summary(survey$fork1_ground_theory)
-summary(survey$fork1_framework_analysis)
-summary(survey$fork1_other_method)
-
-#Question about whether respondents have used shared data to teach any of the above courses
-summary(survey$used_data)
-#32 NO's, 180 YES's, 46 N/A's
-
-#Fork 1
-
-#Analytic Methods
-summary(survey$fork1_discourse_analysis)
-summary(survey$fork1_thematic_analysis)
-summary(survey$fork1_qual_com_analysis)
-summary(survey$fork1_process_tracing)
-summary(survey$fork1_com_hist_met)
-summary(survey$fork1_ground_theory)
-summary(survey$fork1_case_study)
-summary(survey$fork1_phenomenology)
-summary(survey$fork1_narrative_analysis)
-summary(survey$fork1_framework_analysis)
-summary(survey$fork1_other_method)
-
-#Respondents who answered YES are directed to Fork 1
-#The second question in Fork asks them  what type of data they used to teach qualitative analytic methods
-summary(survey$fork1_data_yourself)
-summary(survey$fork1_data_other_res)
-summary(survey$fork1_data_student_prior)
-summary(survey$fork1_data_student_part)
-summary(survey$fork1_other_source)
-summary(survey$fork1_type_data)
-
-
-#Fork2
-
-#When was the first time you used “shared data”
-
-summary(survey$fork2_firstime_0_4)
-summary(survey$fork2_firstime_5_9)
-summary(survey$fork2_firstime_10)
-
-#Have you used shared data to teach qualitative analytic methods more or less over time”
-
-summary(survey$fork2_decrease)
-summary(survey$fork2_same)
-summary(survey$fork2_increase)
-
-#From where did you source the shared data that you used
-summary (survey$fork2_my_own)
-summary (survey$fork2_colleague)
-summary (survey$fork2_repository)
-summary (survey$fork2_textbook)
-summary (survey$fork2_source_others)
-
-#Did you experience any challenges in obtaining the data?
-summary (survey$fork2_identify)
-summary (survey$fork2_access)
-summary (survey$fork2_manage)
-summary (survey$fork2_obtain_other)
-
-#Which qualitative analytic methods have you found it most useful to use shared data to teach?
-
-summary(survey$fork2_discourse_analysis)
-summary(survey$fork2_thematic_analysis)
-summary(survey$fork2_qual_com_analysis)
-summary(survey$fork2_process_tracing)
-summary(survey$fork2_com_hist_met)
-summary(survey$fork2_ground_theory)
-summary(survey$fork2_phenomenology)
-summary(survey$fork2_narrative_analysis)
-summary(survey$fork2_framework_analysis)
-summary(survey$fork2_other_method)
-
-#What effect do you believe the integration of shared data had on student  learning in your course(s) on qualitative analytic methods?
-
-summary(survey$fork2_strong_improve)
-summary(survey$fork2_somewhat_improve)
-summary(survey$fork2_neither)
-summary(survey$fork2_somewhat_worse)
-summary(survey$fork2_much_worse)
-
-#Fork 3
-
-#Why have you not used shared data to teach qualitative analytic methods?
-summary (survey$fork3_not_effective)
-summary (survey$fork3_notsure_use)
-summary (survey$fork3_unlikely_find)
-summary (survey$fork3_couldnt_find)
-
-
-#Would you consider using shared data to teach qualitative analytic methods in the future
-summary (survey$fork3_plan_use)
-summary (survey$fork3_strong_cons)
-summary (survey$fork3_cons)
-summary (survey$fork3_cons_skep)
-summary (survey$fork3_not_use)
-
-#What would encourage and facilitate your use of shared data to teach qualitative analytic methods in the future
-
-summary (survey$fork3_someone_help)
-summary (survey$fork3_data_method)
-summary (survey$fork3_data_topic)
-summary (survey$fork3_prep_lesson)
-summary (survey$fork3_other_enc)
-
-#General Questions
-
-#age
-summary(survey$age_25_34)
-summary(survey$age_35_44)
-summary(survey$age_45_54)
-summary(survey$age_55_64)
-summary(survey$age_65_older)
-
-#ethnicity
-
-summary(survey$ethnicity_asian)
-summary(survey$ethnicity_black)
-summary(survey$ethnicity_hispanic)
-summary(survey$ethnicity_native)
-summary(survey$ethnicity_white)
-summary(survey$ethnicity_multi)
-summary(survey$ethnicity_not_listed)
-
-#recode and summarize gender
-survey <- survey %>% mutate(recoded_gender = recode_gender(gender = gender, dictionary = broad))
-survey$recoded_gender <- as.factor (survey$recoded_gender)
-levels(survey$recoded_gender) <- gsub("cis female", "female", levels(survey$recoded_gender))
-levels(survey$recoded_gender) <- gsub("cis male", "male", levels(survey$recoded_gender))
-levels(survey$recoded_gender) <- gsub("transgender", "Other responses", levels(survey$recoded_gender))
-summary(survey$recoded_gender)
-
-#Graphs
-
-#Number of respondents who teach qualitative methods
-ggplot(survey, aes(x = teach_qualitative)) +
-  geom_bar() + scale_x_discrete(labels = c("Do Not Teach", "Major Focus", "Partial Focus", "N/A")) + ggtitle("Have you taught a graduate-level course focused on, or including material on, qualitative methods?") + ylab("Number of Respondents Teaching Qualitative Methods") + theme(axis.title.x=element_blank())
-
-#Number of respondents who have used shared data
-ggplot(survey, aes(x = used_data)) +
-  geom_bar() + ggtitle("Have you used data to teach any of the qualitative analytic methods you just mentioned?") + ylab("Number of Respondents") + theme(axis.title.x=element_blank())
-
