@@ -130,7 +130,7 @@ levels(survey$teach_qualitative) <- gsub("No", "No - I do not teach qualitative 
 
 levels(survey$analytic_methods) <- gsub("Qualitative Comparative Analysis","Qual. Comp. Analysis", levels(survey$analytic_methods))
 levels(survey$analytic_methods) <- gsub("Comparative Historical Methods","Comp. Hist. Methods", levels(survey$analytic_methods))
-survey$analytic_methods <- gsub('Other \\(Separate methods by semicolon\\)', 'Other', survey$analytic_methods)
+levels(survey$analytic_methods) <- gsub('Other \\(Separate methods by semicolon\\)', 'Other', levels(survey$analytic_methods))
 
 levels(survey$used_data) <- gsub("Yes", "Yes - I have used data", levels(survey$used_data))
 levels(survey$used_data) <- gsub("No", "No - I have not used data", levels(survey$used_data))
@@ -148,17 +148,17 @@ levels(survey$fork3a_data_future) <- gsub("I am almost certainly not going to", 
 
 levels(survey$fork3a_encourage_data) <- gsub("Easily available data specifically prepared for teaching a specific method", "Easily available data for teaching method", levels(survey$fork3a_encourage_data))
 levels(survey$fork3a_encourage_data) <- gsub("Prepared lessons/lesson plans for teaching a specific method based on shared data", "Prepared lessons for teaching method with shared data", levels(survey$fork3a_encourage_data))
-survey$fork3a_encourage_data <- gsub('Other \\(Separate methods by semicolon\\)', 'Other', survey$fork3a_encourage_data)
+levels(survey$fork3a_encourage_data <- gsub('Other \\(Separate methods by semicolon\\)', 'Other', survey$fork3a_encourage_data))
 
 levels(survey$fork1_methods) <- gsub("Qualitative Comparative Analysis","Qual. Comp. Analysis", levels(survey$fork1_methods))
 levels(survey$fork1_methods) <- gsub("Comparative Historical Methods","Comp. Hist. Methods", levels(survey$fork1_methods))
-survey$fork1_methods <- gsub('Other \\(Separate methods by semicolon\\)', 'Other', survey$fork1_methods)
+levels(survey$fork1_methods <- gsub('Other \\(Separate methods by semicolon\\)', 'Other', survey$fork1_methods))
 
 levels(survey$fork1_type_data) <- gsub("Data that you yourself collected prior to the course", "Data you yourself collected", levels(survey$fork1_type_data))
-levels(survey$fork1_type_data) <- gsub("Data collected by another researcher", "Data collected by other researcher", levels(survey$fork1_type_data))
+levels(survey$fork1_type_data) <- gsub("Data collected by another researcher prior to the course", "Data collected by other researcher", levels(survey$fork1_type_data))
 levels(survey$fork1_type_data) <- gsub("Data collected by students prior to the course", "Data collected by students prior to course", levels(survey$fork1_type_data))
 levels(survey$fork1_type_data) <- gsub("Data collected by students as part of the course", "Data collected by students for course", levels(survey$fork1_type_data))
-levels(survey$fork1_type_data) <- gsub("Other (please specificy)", "Other", levels(survey$fork1_type_data))
+levels(survey$fork1_type_data) <- gsub('Other \\(please specificy\\)', 'Other', levels(survey$fork1_type_data))
 
 levels(survey$fork2_sources) <- gsub("I used data from a data repository (e.g., ICPSR, QDR)", "I used data from a data repository", levels(survey$fork2_sources))
 levels(survey$fork2_sources) <- gsub("I used data from a textbook/e-resource page (e.g., SAGE Research Methods)", "I used data from a textbook/e-resource page", levels(survey$fork2_sources))
@@ -168,7 +168,7 @@ levels(survey$fork2_challenges_obtain) <- gsub("Other (please specificy)", "Othe
 
 levels(survey$fork2_useful_methods) <- gsub("Qualitative Comparative Analysis","Qual. Comp. Analysis", levels(survey$fork2_useful_methods))
 levels(survey$fork2_useful_methods) <- gsub("Comparative Historical Methods","Comp. Hist. Methods", levels(survey$fork2_useful_methods))
-survey$fork2_useful_methods <- gsub('Other \\(Separate methods by semicolon\\)', 'Other', survey$fork2_useful_methods)
+evels(survey$fork2_useful_methods <- gsub('Other \\(Separate methods by semicolon\\)', 'Other', survey$fork2_useful_methods))
 
 levels(survey$fork3b_why_nodata) <- gsub("I don’t believe doing so would be effective for my course", "Not effective for my course", levels(survey$fork3b_why_nodata))
 levels(survey$fork3b_why_nodata) <- gsub("I am not sure how to use pre-existing data effectively in instruction", "Not sure how to use", levels(survey$fork3b_why_nodata))
@@ -183,7 +183,7 @@ levels(survey$fork3b_data_future) <- gsub("I am almost certainly not going to", 
 
 levels(survey$fork3b_encourage_data) <- gsub("Easily available data specifically prepared for teaching a specific method", "Easily available data for teaching method", levels(survey$fork3b_encourage_data))
 levels(survey$fork3b_encourage_data) <- gsub("Prepared lessons/lesson plans for teaching a specific method based on shared data", "Prepared lessons for teaching method with shared data", levels(survey$fork3b_encourage_data))
-survey$fork3b_encourage_data <- gsub('Other \\(Separate methods by semicolon\\)', 'Other', survey$fork3b_encourage_data)
+levels(survey$fork3b_encourage_data <- gsub('Other \\(Separate methods by semicolon\\)', 'Other', survey$fork3b_encourage_data))
 
 #Combine Forks 3a and 3b
 #Note: Choices in questions fork3a_why_nodata and fork3b_why_nodata are worded slightly different (one mentions
@@ -227,7 +227,7 @@ survey <- transform(survey, fork1_discourse_analysis = grepl("Discourse Analysis
                             fork1_framework_analysis = grepl("Framework Analysis", survey$fork1_methods),
                             fork1_other_method = grepl("Other", survey$fork1_methods))
 
-survey <- transform(survey, fork1_data_yourself = grepl("Data that yourself collected", survey$fork1_type_data),
+survey <- transform(survey, fork1_data_yourself = grepl("Data you yourself collected", survey$fork1_type_data),
                             fork1_data_other_res = grepl("Data collected by other researcher", survey$fork1_type_data),
                             fork1_data_student_prior = grepl("Data collected by students prior to course", survey$fork1_type_data),
                             fork1_data_student_part = grepl("Data collected by students for course", survey$fork1_type_data),
