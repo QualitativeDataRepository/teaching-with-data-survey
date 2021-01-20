@@ -154,6 +154,7 @@ levels(survey$fork1_methods) <- gsub("Qualitative Comparative Analysis","Qual. C
 levels(survey$fork1_methods) <- gsub("Comparative Historical Methods","Comp. Hist. Methods", levels(survey$fork1_methods))
 survey$fork1_methods <- gsub('Other \\(Separate methods by semicolon\\)', 'Other', survey$fork1_methods)
 
+levels(survey$fork1_type_data) <- gsub("Data that you yourself collected prior to the course", "Data you yourself collected", levels(survey$fork1_type_data))
 levels(survey$fork1_type_data) <- gsub("Data collected by another researcher", "Data collected by other researcher", levels(survey$fork1_type_data))
 levels(survey$fork1_type_data) <- gsub("Data collected by students prior to the course", "Data collected by students prior to course", levels(survey$fork1_type_data))
 levels(survey$fork1_type_data) <- gsub("Data collected by students as part of the course", "Data collected by students for course", levels(survey$fork1_type_data))
@@ -364,6 +365,8 @@ summary(survey$fork1_data_other_res)
 summary(survey$fork1_data_student_prior)
 summary(survey$fork1_data_student_part)
 summary(survey$fork1_other_source)
+summary(survey$fork1_type_data)
+
 
 #Fork2
 
