@@ -318,6 +318,7 @@ summary(survey$consent_datasharing)
 #The majority of respondents teach courses focused on qualitative methods (186);
 #44 respondents teach courses with components of qualitative methods;
 #18 respondens do not teach qualitative methods
+#10 N/As
 summary(survey$teach_qualitative)
 
 #Getting an idea about which courses were taught
@@ -339,7 +340,7 @@ summary(survey$fork1_other_method)
 
 #Question about whether respondents have used shared data to teach any of the above courses
 summary(survey$used_data)
-#32 NO's, 180 YES's, 45 N/A's
+#32 NO's, 180 YES's, 46 N/A's
 
 #Fork 1
 
