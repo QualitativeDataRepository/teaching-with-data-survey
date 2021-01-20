@@ -51,9 +51,9 @@ survey <- survey %>% rename(
   fork1_methods_open_2 = Q53_18_TEXT,
   fork1_type_data = Q11_1,
   fork1_type_data_open = Q11_5_TEXT,
-  #question fork1_type_data can lead the respodent to forks 2 or the second fork 3
+  #question fork1_type_data can lead the respondent to forks 2 or the second fork 3
   #fork 2 (answered "data you yourself collected prior to the course", "data collected by another
-  #resercher prior to the course" or "other" in question fork1_type_data and question fork1_type_data_open)
+  #researcher prior to the course" or "other" in question fork1_type_data and question fork1_type_data_open)
   fork2_first_time = Q12,
   fork2_motivation = Q13,
   fork2_frequency = Q14_1,
@@ -186,7 +186,7 @@ survey$fork3b_encourage_data <- gsub('Other \\(Separate methods by semicolon\\)'
 
 #Combine Forks 3a and 3b
 #Note: Choices in questions fork3a_why_nodata and fork3b_why_nodata are worded slightly different (one mentions
-#shared data, the other pre-existing data), thus we need to adjust factors before merginig the two factors
+#shared data, the other pre-existing data), thus we need to adjust factors before merging the two factors
 
 survey$fork3comb_why_nodata <- as.factor(ifelse(!is.na(survey$fork3a_why_nodata),as.character(survey$fork3a_why_nodata),as.character(survey$fork3b_why_nodata)))
 
