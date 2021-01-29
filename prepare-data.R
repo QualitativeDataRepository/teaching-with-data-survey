@@ -51,7 +51,7 @@ survey <- survey %>% rename(
   consent = Q01,
   consent_datasharing = Q11,
   teach_qualitative = Q14,
-  Discipline = discipline,
+  discipline = Discipline,
   courses_taught = Q15,
   analytic_methods = Q16,
   analytic_methods_open = Q16_14_TEXT,
