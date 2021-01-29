@@ -12,6 +12,7 @@ library(gendercodeR)
 
 # Read in the survey -- may need to adjust the filename
 survey <- read_csv("data/survey data_final.csv")
+courses <- read_csv("data/recode_courses.csv")
 
 
 # Clean Data --------------------------------------------------------------

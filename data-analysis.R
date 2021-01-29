@@ -64,15 +64,11 @@ summary(survey$fork1_type_data)
 
 #When was the first time you used “shared data”
 
-summary(survey$fork2_firstime_0_4)
-summary(survey$fork2_firstime_5_9)
-summary(survey$fork2_firstime_10)
+summary(survey$fork2_first_time)
 
 #Have you used shared data to teach qualitative analytic methods more or less over time”
 
-summary(survey$fork2_decrease)
-summary(survey$fork2_same)
-summary(survey$fork2_increase)
+summary(survey$fork2_frequency)
 
 #From where did you source the shared data that you used
 summary (survey$fork2_my_own)
@@ -86,6 +82,7 @@ summary (survey$fork2_identify)
 summary (survey$fork2_access)
 summary (survey$fork2_manage)
 summary (survey$fork2_obtain_other)
+summary(survey$fork2_challenges_obtain)
 
 #Which qualitative analytic methods have you found it most useful to use shared data to teach?
 
@@ -102,11 +99,7 @@ summary(survey$fork2_other_method)
 
 #What effect do you believe the integration of shared data had on student  learning in your course(s) on qualitative analytic methods?
 
-summary(survey$fork2_strong_improve)
-summary(survey$fork2_somewhat_improve)
-summary(survey$fork2_neither)
-summary(survey$fork2_somewhat_worse)
-summary(survey$fork2_much_worse)
+summary(survey$fork2_effect)
 
 #Fork 3
 
@@ -115,13 +108,10 @@ summary (survey$fork3_not_effective)
 summary (survey$fork3_notsure_use)
 summary (survey$fork3_unlikely_find)
 summary (survey$fork3_couldnt_find)
+summary (survey$fork3a_why_nodata)
 
 #Would you consider using shared data to teach qualitative analytic methods in the future
-summary (survey$fork3_plan_use)
-summary (survey$fork3_strong_cons)
-summary (survey$fork3_cons)
-summary (survey$fork3_cons_skep)
-summary (survey$fork3_not_use)
+summary (survey$fork3comb_data_future)
 
 #What would encourage and facilitate your use of shared data to teach qualitative analytic methods in the future
 
@@ -134,11 +124,7 @@ summary (survey$fork3_other_enc)
 #General Questions
 
 #age
-summary(survey$age_25_34)
-summary(survey$age_35_44)
-summary(survey$age_45_54)
-summary(survey$age_55_64)
-summary(survey$age_65_older)
+summary(survey$age)
 
 #ethnicity
 
