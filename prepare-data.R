@@ -51,6 +51,7 @@ survey <- survey %>% rename(
   consent = Q01,
   consent_datasharing = Q11,
   teach_qualitative = Q14,
+  Discipline = discipline,
   courses_taught = Q15,
   analytic_methods = Q16,
   analytic_methods_open = Q16_14_TEXT,
@@ -114,6 +115,7 @@ survey$consent <- as.factor(survey$consent)
 survey$consent_datasharing <- as.factor(survey$consent_datasharing)
 survey$teach_qualitative <- as.factor(survey$teach_qualitative)
 survey$courses_taught <- as.factor(survey$courses_taught)
+survey$discipline <- as.factor(survey$discipline)
 survey$analytic_methods <- as.factor(survey$analytic_methods)
 survey$used_data <- as.factor (survey$used_data)
 survey$fork3a_why_nodata <- as.factor (survey$fork3a_why_nodata)
