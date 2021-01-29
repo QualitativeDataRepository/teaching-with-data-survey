@@ -26,6 +26,16 @@ survey <- survey %>% filter(!DistributionChannel == "preview")
 # We might want to remove additional unnecessary columns here
 survey <- survey %>% select(-c(Status, IPAddress, RecipientLastName, RecipientFirstName, RecipientEmail, LocationLatitude, LocationLongitude))
 
+# recode courses
+recode_coursename <- read_csv("data/recode_courses.csv")
+for (row in 1:nrow(recode_coursename)){
+  course <- as.character(recode_coursename[row, "original_courses"])
+  recoded_course  <- as.character(recode_coursename[row, "recoded_courses"])
+  print(course)
+  print(recoded_course)
+  survey$Q15 <- gsub(course, recoded_course, survey$Q15, fixed = TRUE, ignore.case = TRUE)
+}
+
 # Q9 should be Q09 for sorting
 survey <- survey %>% rename(Q09 = Q9, Q01 = Q1)
 
