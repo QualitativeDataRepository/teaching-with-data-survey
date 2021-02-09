@@ -2,6 +2,21 @@
 #Summary Statistics#
 ####################
 
+library(ggplot2)
+library(ggthemes)
+library(extrafont)
+library(plyr)
+library(scales)
+library(viridis)
+library(hrbrthemes)
+
+install.packages("ggthemes")
+install.packages("extrafont")
+install.packages("plyr")
+install.packages("scales")
+install.packages("viridis")
+install.packages("hrbrthemes")
+
 
 #General information: consent given by 258 respondents
 summary(survey$consent)
@@ -154,3 +169,12 @@ ggplot(survey, aes(x = teach_qualitative)) +
 ggplot(survey, aes(x = used_data)) +
   geom_bar() + ggtitle("Have you used data to teach any of the qualitative analytic methods you just mentioned?") + ylab("Number of Respondents") + theme(axis.title.x=element_blank())
 
+#Number of respondents by discipline (pre- and post-survey)
+disciplines <- read_csv("data/samplesbydiscipline.csv")
+
+p5 <- ggplot(disciplines, aes(fill=respondents, y=sample, x=discipline)) +
+  geom_bar(position="stack", stat="identity") +
+  ggtitle("Distribution of Respondents by Discipline") +
+  xlab("")
+
+p5
