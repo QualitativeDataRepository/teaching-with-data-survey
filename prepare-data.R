@@ -276,10 +276,11 @@ survey <- transform(survey, fork2_my_own = grepl("I used my own data", survey$fo
 survey <- transform(survey, fork2_identify = grepl("Difficulty identifying useful data", survey$fork2_challenges_obtain),
                             fork2_access = grepl("Difficulty accessing the data", survey$fork2_challenges_obtain),
                             fork2_manage = grepl("Difficulty managing student access to data", survey$fork2_challenges_obtain),
-                            fork2_obtain_other = grepl("Other", survey$fork2_challenges_obtain))
-
+                            fork2_obtain_other = grepl("Other", survey$fork2_challenges_obtain),
+                            fork2_no_challenge = grepl("None", survey$fork2_challenges_obtain))
 
 survey <- transform(survey, fork2_discourse_analysis = grepl("Discourse Analysis", survey$fork2_useful_methods),
+                    fork2_casestudy = grepl("Case Study", survey$fork2_useful_methods),
                     fork2_thematic_analysis = grepl("Thematic Analysis", survey$fork2_useful_methods),
                     fork2_qual_com_analysis = grepl("Qual. Comp. Analysis", survey$fork2_useful_methods),
                     fork2_process_tracing = grepl("ProcessTracing", survey$fork2_useful_methods),

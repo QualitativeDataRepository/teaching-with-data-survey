@@ -9,6 +9,7 @@ library(plyr)
 library(scales)
 library(viridis)
 library(hrbrthemes)
+library(reshape2)
 
 install.packages("ggthemes")
 install.packages("extrafont")
@@ -16,7 +17,8 @@ install.packages("plyr")
 install.packages("scales")
 install.packages("viridis")
 install.packages("hrbrthemes")
-
+install.packages("reshape2")
+install.packages("gmodels")
 
 #General information: consent given by 258 respondents
 summary(survey$consent)
@@ -110,9 +112,10 @@ summary(survey$fork2_ground_theory)
 summary(survey$fork2_phenomenology)
 summary(survey$fork2_narrative_analysis)
 summary(survey$fork2_framework_analysis)
+summary(survey$fork2_casestudy)
 summary(survey$fork2_other_method)
 
-#What effect do you believe the integration of shared data had on student  learning in your course(s) on qualitative analytic methods?
+#What effect do you believe the integration of shared data had on student learning in your course(s) on qualitative analytic methods?
 
 summary(survey$fork2_effect)
 
@@ -143,7 +146,7 @@ summary(survey$age)
 
 #ethnicity
 
-summary(survey$ethnicity_asian)
+summary(survey$ethnicity)
 summary(survey$ethnicity_black)
 summary(survey$ethnicity_hispanic)
 summary(survey$ethnicity_native)
@@ -159,6 +162,14 @@ levels(survey$recoded_gender) <- gsub("cis male", "male", levels(survey$recoded_
 levels(survey$recoded_gender) <- gsub("transgender", "Other responses", levels(survey$recoded_gender))
 summary(survey$recoded_gender)
 
+#crosstab
+install.packages("sjPlot")
+tab_xtab(var.row = survey$fork1_data_yourself, var.col = survey$discipline, title = "Table Title", show.row.prc = TRUE)
+tab_xtab(var.row = survey$fork1_data_other_res, var.col = survey$discipline, title = "Table Title", show.row.prc = TRUE)
+tab_xtab(var.row = survey$fork1_data_student_prior, var.col = survey$discipline, title = "Table Title", show.row.prc = TRUE)
+tab_xtab(var.row = survey$fork1_data_student_part, var.col = survey$discipline, title = "Table Title", show.row.prc = TRUE)
+tab_xtab(var.row = survey$fork1_other_source, var.col = survey$discipline, title = "Table Title", show.row.prc = TRUE)
+
 #Graphs
 
 #Number of respondents who teach qualitative methods
@@ -171,10 +182,7 @@ ggplot(survey, aes(x = used_data)) +
 
 #Number of respondents by discipline (pre- and post-survey)
 disciplines <- read_csv("data/samplesbydiscipline.csv")
+p1 <- ggplot(disciplines, aes(x=discipline, y=sample, fill=respondents+nonrespondents)) +
+  geom_bar(stat='identity')
+p1
 
-p5 <- ggplot(disciplines, aes(fill=respondents, y=sample, x=discipline)) +
-  geom_bar(position="stack", stat="identity") +
-  ggtitle("Distribution of Respondents by Discipline") +
-  xlab("")
-
-p5
