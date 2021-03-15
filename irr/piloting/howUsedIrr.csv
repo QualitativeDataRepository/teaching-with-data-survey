@@ -1,0 +1,6 @@
+"","Variable","n_Units","n_Coders","n_Categories","Level","Agreement","Holstis_CR","Krippendorffs_Alpha","Cohens_Kappa","Fleiss_Kappa"
+"1","analysis",25,2,2,"nominal",0.6,0.6,0.0992647058823529,0.22360248447205,0.0808823529411763
+"2","coding",25,2,2,"nominal",1,1,1,1,1
+"3","interviewing",25,2,2,"nominal",0.96,0.96,0.652482269503546,0.647887323943662,0.645390070921986
+"4","limitations",25,2,2,"nominal",0.96,0.96,1.11022302462516e-16,0,-0.0204081632653038
+"5","other",25,2,2,"nominal",0.84,0.84,0.51,0.519230769230769,0.5
