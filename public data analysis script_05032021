@@ -1,0 +1,105 @@
+#Public Data Analysis Script
+#05/03/2021
+
+
+summary(survey$teach_qualitative)
+summary(survey$courses_taught)
+summary(survey$analytic_methods)
+
+summary(survey$fork1_thematic_analysis)
+summary(survey$fork1_qual_com_analysis)
+summary(survey$fork1_process_tracing)
+summary(survey$fork1_com_hist_met)
+summary(survey$fork1_phenomenology)
+summary(survey$fork1_narrative_analysis)
+summary(survey$fork1_case_study)
+summary(survey$fork1_ground_theory)
+summary(survey$fork1_framework_analysis)
+summary(survey$fork1_other_method)
+
+summary(survey$used_data)
+
+summary(survey$fork1_discourse_analysis)
+summary(survey$fork1_thematic_analysis)
+summary(survey$fork1_qual_com_analysis)
+summary(survey$fork1_process_tracing)
+summary(survey$fork1_com_hist_met)
+summary(survey$fork1_ground_theory)
+summary(survey$fork1_case_study)
+summary(survey$fork1_phenomenology)
+summary(survey$fork1_narrative_analysis)
+summary(survey$fork1_framework_analysis)
+summary(survey$fork1_other_method)
+
+summary(survey$fork1_data_yourself)
+summary(survey$fork1_data_another_res)
+summary(survey$fork1_data_student_prior)
+summary(survey$fork1_data_student_part)
+summary(survey$fork1_other_source)
+summary(survey$fork1_type_data)
+
+install.packages("janitor")
+library(janitor)
+install.packages("vtree")
+library
+summary(survey$fork1_data_yourself)
+tabyl(survey, fork1_data_yourself, discipline )
+tabyl(survey, fork1_data_another_res, discipline)
+tabyl(survey, fork1_data_student_prior, discipline)
+tabyl(survey, fork1_data_student_part, discipline)
+tabyl(survey, fork1_other_source, discipline)
+
+summary(survey$fork2_first_time)
+
+summary(survey$fork2_frequency)
+
+summary (survey$fork2_my_own)
+summary (survey$fork2_colleague)
+summary (survey$fork2_repository)
+summary (survey$fork2_textbook)
+summary (survey$fork2_source_others)
+
+summary (survey$fork2_identify)
+summary (survey$fork2_access)
+summary (survey$fork2_manage)
+summary (survey$fork2_obtain_other)
+summary(survey$fork2_no_challenge)
+summary(survey$fork2_challenges_obtain)
+
+summary(survey$fork2_discourse_analysis)
+summary(survey$fork2_thematic_analysis)
+summary(survey$fork2_qual_com_analysis)
+summary(survey$fork2_process_tracing)
+summary(survey$fork2_com_hist_met)
+summary(survey$fork2_ground_theory)
+summary(survey$fork2_phenomenology)
+summary(survey$fork2_narrative_analysis)
+summary(survey$fork2_framework_analysis)
+summary(survey$fork2_casestudy)
+summary(survey$fork2_other_method)
+
+summary(survey$fork2_effect)
+
+summary (survey$fork3_not_effective)
+summary (survey$fork3_notsure_use)
+summary (survey$fork3_unlikely_find)
+summary (survey$fork3_couldnt_find)
+summary (survey$fork3a_why_nodata)
+
+summary (survey$fork3comb_data_future)
+
+summary (survey$fork3_someone_help)
+summary (survey$fork3_data_method)
+summary (survey$fork3_data_topic)
+summary (survey$fork3_prep_lesson)
+summary (survey$fork3_other_enc)
+
+summary(survey$age)
+
+summary(survey$ethnicity)
+summary(survey$ethnicity_black)
+summary(survey$ethnicity_hispanic)
+summary(survey$ethnicity_native)
+summary(survey$ethnicity_white)
+summary(survey$ethnicity_multi)
+summary(survey$ethnicity_not_listed)
